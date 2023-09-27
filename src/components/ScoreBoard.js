@@ -13,10 +13,7 @@ const ScoreBoard = ({ score, totalQuestions }) => {
         return (
             <p key={questionIndex}>
                 Your Selected Option:{" "}
-                <strong className={isCorrect ? "text-success" : "text-danger"}>
-                    {selectedOption}
-                    {isCorrect ? " (Correct)" : " (Incorrect)"}
-                </strong>
+                 
             </p>
         );
     };
