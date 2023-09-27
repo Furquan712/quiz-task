@@ -1,0 +1,42 @@
+/* Add this CSS to your stylesheet or style module */
+.navigation-panel {
+    padding-top: 20px; /* Add padding to the top */
+     
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navigation-header {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* Add this CSS to your stylesheet or style module */
+  .question-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .question-button.visited {
+    background-color: red; /* Color for visited but not answered questions */
+  }
+  
+  .question-button.visited-and-attempted {
+    background-color: green; /* Color for visited and answered questions */
+  }
+  
+  
+  .question-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+  }
+  

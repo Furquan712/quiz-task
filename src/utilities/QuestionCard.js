@@ -7,13 +7,14 @@ import ScoreBoard from "../components/ScoreBoard";
 import Timer from "../components/Timer";
 import { useQuizResults } from "./Hooks";
 import questionCountReducer from "./questionCountReducer"; // Import the reducer
+import "./QuestionCard.css"; // Import the CSS file
 
 
 const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
   const initialState = {
     currentQuestionIndex: 0,
-    visitedQuestions: [],    // Track visited questions
-    attemptedQuestions: [],  // Track attempted questions
+    visitedQuestions: [], // Track visited questions
+    attemptedQuestions: [], // Track attempted questions
   };
 
   const [state, dispatch] = useReducer(questionCountReducer, initialState);
@@ -75,24 +76,36 @@ const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
   };
 
   // Render a list of question buttons for navigation
-  const renderQuestionButtons = () => {
+  // ... Your component code ...
+
+const renderQuestionButtons = () => {
     return quiz.map((question, index) => {
       const isVisited = state.visitedQuestions.includes(index);
       const isAttempted = state.attemptedQuestions.includes(index);
-
+  
+      // Determine the classes to apply to the button based on conditions
+      let buttonClasses = "question-button";
+      if (isVisited && isAttempted) {
+        buttonClasses += " visited-and-attempted";
+      } else if (isVisited) {
+        buttonClasses += " visited";
+      }
+  
       return (
         <button
           key={index}
-          className={`question-button ${isVisited ? "visited" : ""} ${
-            isAttempted ? "attempted" : ""
-          }`}
+          className={buttonClasses}
           onClick={() => navigateToQuestion(index)}
         >
-          Question {index + 1}
+          Q {index + 1}
         </button>
       );
     });
   };
+  
+  // ... The rest of your component code ...
+  
+  
 
   return (
     <Container>
@@ -100,6 +113,13 @@ const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
       {quizEnded ? (
         <ScoreBoard score={score} totalQuestions={totalQuestions} />
       ) : (
+
+       <div>
+          {/* Navigation Panel */}
+      <div className="navigation-panel py-6">
+      <h1 className="navigation-header">Questions</h1>
+      {renderQuestionButtons()}
+    </div>
         <Card>
           <Card.Header as="h5" className="text-center">
             Category: {currentQuestion.category}
@@ -126,22 +146,17 @@ const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
           </Card.Body>
           <Card.Footer>
             <Row>
-              <Col>
-                Difficulty: {toUpperCase(currentQuestion.difficulty)}
-              </Col>
+              <Col>Difficulty: {toUpperCase(currentQuestion.difficulty)}</Col>
               <Col className="text-end">
                 {state.currentQuestionIndex + 1} / {totalQuestions}
               </Col>
             </Row>
           </Card.Footer>
         </Card>
+       </div>
       )}
 
-      {/* Navigation Panel */}
-      <div className="navigation-panel py-6">
-        <h1>Questions</h1>
-        {renderQuestionButtons()}
-      </div>
+      
     </Container>
   );
 };
