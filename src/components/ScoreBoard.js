@@ -1,27 +1,25 @@
 import { Alert, Button, Col, Row } from "react-bootstrap";
 import { useQuizData } from "../QuizDataContext";
 
-const ScoreBoard = ({ score, totalQuestions, selectedAnswer, correctAnswer }) => {
+const ScoreBoard = ({ score, totalQuestions }) => {
     const { quiz, selectedOptions } = useQuizData();
-  
+
     // Function to render selected options for each question
     const renderSelectedOptions = (questionIndex) => {
         const selectedOption = selectedOptions[questionIndex];
+        const correctAnswer = quiz[questionIndex].correct_answer;
         const isCorrect = selectedOption === correctAnswer;
-        return selectedOption ? (
-          <p>
-            Your Selected Option:{" "}
-            <strong className={isCorrect ? "text-success" : "text-danger"}>
-              {selectedOption}
-              {isCorrect ? " (Correct)" : " (Incorrect)"}
-            </strong>
-          </p>
-        ) : null;
 
-        console.log(selectedOption);
-      };
-    
-
+        return (
+            <p key={questionIndex}>
+                Your Selected Option:{" "}
+                <strong className={isCorrect ? "text-success" : "text-danger"}>
+                    {selectedOption}
+                    {isCorrect ? " (Correct)" : " (Incorrect)"}
+                </strong>
+            </p>
+        );
+    };
   let color;
 
   if (totalQuestions === 10) {
@@ -78,7 +76,7 @@ const ScoreBoard = ({ score, totalQuestions, selectedAnswer, correctAnswer }) =>
                     <h3>Question {index + 1}:</h3>
                     <p>Question: {question.question}</p>
                     <p>Correct Answer: {question.correct_answer}</p>
-                    <p>Your Selected Answer: {question.selectedAnswer}</p>
+                    {renderSelectedOptions(index)} {/* Render selected options here */}
                 </div>
             ))}
         </div>
