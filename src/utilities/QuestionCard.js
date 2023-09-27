@@ -19,6 +19,8 @@ const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
     const [score, setScore] = useState(0);
     const [quizEnded, setQuizEnded] = useState(false);
     const [timerExpired, setTimerExpired] = useState(false);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
+
 
 
     let arr = [currentQuestion.correct_answer].concat(
@@ -39,6 +41,7 @@ const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
             if (answer === currentQuestion.correct_answer) {
                 setScore(score + 1);
             }
+            setSelectedAnswer(answer); // Store the selected answer
             if (state.currentQuestionIndex < quiz.length - 1) {
                 dispatch({ type: "NEXT_QUESTION" });
             } else {
@@ -46,7 +49,7 @@ const QuestionCard = ({ quiz, selectedDifficulty, selectedCategory }) => {
             }
         }, 1000);
     };
-
+    
     const totalQuestions = quiz.length;
 
     const quizResults = {

@@ -7,7 +7,7 @@ import QuestionCard from "./utilities/QuestionCard";
 import Loader from "./components/Loader";
 import ErrorAlert from "./components/ErrorAlert";
 import Results from "./components/Results";
-import { useQuizData, QuizDataProvider } from "./QuizDataContext"; // Import the context
+import { useQuizData, QuizDataProvider } from "./QuizDataContext";
 
 const App = () => {
   const {
@@ -23,7 +23,7 @@ const App = () => {
     onSelectQuestion,
     onSelectDifficulty,
     hideForm,
-  } = useQuizData(); // Use the context values
+  } = useQuizData();
 
   return (
     <React.Fragment>

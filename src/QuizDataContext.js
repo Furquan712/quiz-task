@@ -15,7 +15,7 @@ export const QuizDataProvider = ({ children }) => {
   const [quiz, setQuiz] = useState([]);
   const [status, setStatus] = useState(0);
   const [categoryName, setCategoryName] = useState("any");
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState({});
 
   const onSelectCategory = (category, categoryName) => {
     setSelectedCategory(category);
@@ -28,13 +28,6 @@ export const QuizDataProvider = ({ children }) => {
 
   const onSelectDifficulty = (difficulty) => {
     setSelectedDifficulty(difficulty);
-  };
-
-  const addSelectedOption = (index, option) => {
-    setSelectedOptions((prevOptions) => ({
-      ...prevOptions,
-      [index]: option,
-    }));
   };
 
   useEffect(() => {
@@ -69,6 +62,13 @@ export const QuizDataProvider = ({ children }) => {
 
   const hideForm = (isVisible) => {
     setIsVisible(isVisible);
+  };
+
+  const addSelectedOption = (questionIndex, option) => {
+    setSelectedOptions((prevOptions) => ({
+      ...prevOptions,
+      [questionIndex]: option,
+    }));
   };
 
   const contextValue = {

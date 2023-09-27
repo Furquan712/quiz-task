@@ -1,18 +1,26 @@
 import { Alert, Button, Col, Row } from "react-bootstrap";
 import { useQuizData } from "../QuizDataContext";
 
-const ScoreBoard = ({ score, totalQuestions }) => {
-  const { quiz, selectedOptions } = useQuizData();
+const ScoreBoard = ({ score, totalQuestions, selectedAnswer, correctAnswer }) => {
+    const { quiz, selectedOptions } = useQuizData();
+  
+    // Function to render selected options for each question
+    const renderSelectedOptions = (questionIndex) => {
+        const selectedOption = selectedOptions[questionIndex];
+        const isCorrect = selectedOption === correctAnswer;
+        return selectedOption ? (
+          <p>
+            Your Selected Option:{" "}
+            <strong className={isCorrect ? "text-success" : "text-danger"}>
+              {selectedOption}
+              {isCorrect ? " (Correct)" : " (Incorrect)"}
+            </strong>
+          </p>
+        ) : null;
 
-  // Function to render selected options for each question
-  const renderSelectedOptions = (questionIndex) => {
-    const selectedOption = selectedOptions[questionIndex];
-    return selectedOption ? (
-      <p>
-        Your Selected Option: <strong>{selectedOption}</strong>
-      </p>
-    ) : null;
-  };
+        console.log(selectedOption);
+      };
+    
 
   let color;
 
@@ -48,34 +56,34 @@ const ScoreBoard = ({ score, totalQuestions }) => {
 
   return (
     <>
-      <Row>
-        <Col className="text-center">
-          <Alert variant={color}>
-            <Alert.Heading>Your Score</Alert.Heading>
-            <p>
-              {score} / {totalQuestions}
-            </p>
-            <hr />
-            <div className="d-flex justify-content-end">
-              <Button variant={"outline-" + color} onClick={handleReload}>
-                Start Again
-              </Button>
-            </div>
-          </Alert>
-        </Col>
-      </Row>
-      <div>
-        {quiz.map((question, index) => (
-          <div key={index}>
-            <h3>Question {index + 1}:</h3>
-            <p>Question: {question.question}</p>
-            <p>Correct Answer: {question.correct_answer}</p>
-           <p>{renderSelectedOptions(index)}</p> 
-          </div>
-        ))}
-      </div>
+        <Row>
+            <Col className="text-center">
+                <Alert variant={color}>
+                    <Alert.Heading>Your Score</Alert.Heading>
+                    <p>
+                        {score} / {totalQuestions}
+                    </p>
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                        <Button variant={"outline-" + color} onClick={handleReload}>
+                            Start Again
+                        </Button>
+                    </div>
+                </Alert>
+            </Col>
+        </Row>
+        <div>
+            {quiz.map((question, index) => (
+                <div key={index}>
+                    <h3>Question {index + 1}:</h3>
+                    <p>Question: {question.question}</p>
+                    <p>Correct Answer: {question.correct_answer}</p>
+                    <p>Your Selected Answer: {question.selectedAnswer}</p>
+                </div>
+            ))}
+        </div>
     </>
-  );
+);
 };
 
 export default ScoreBoard;
